@@ -1,0 +1,42 @@
+<h1>TaskFlow</h1>
+
+<p>Mi primer proyecto con Angular moderno 🚀</p>
+
+<input
+  type="text"
+  (input)="actualizarTexto($event)"
+  placeholder="Nueva tarea">
+
+  <br/>
+
+  <span>{{nuevaTarea()}}</span><br>
+
+  <button (click)="agregarTarea()">
+  Añadir
+  </button>
+
+  <br><br>
+  
+  <span>Mostramos las tareas</span><br/>
+  
+  @for (tarea of tareas(); track $index) {
+
+    <span> {{ $index }} - {{ tarea }} </span> <button (click)="eliminarTarea($index)">  X  </button><br/>
+  }
+
+  <br/>
+  <span>Número de tareas {{tareas().length}}</span><br><br>
+
+  <button (click)="limpiarVacias()">
+  Limpiar
+  </button>
+
+  <br><br>
+  <button (click)="eliminarUltimaTarea()">
+    Eliminar última
+  </button>
+
+  <br><br>
+  <button (click)="eliminarPares()">
+  Eliminar índices pares
+  </button>
