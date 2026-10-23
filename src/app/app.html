@@ -8,61 +8,43 @@
   (input)="actualizarTexto($event)"
   placeholder="Nueva tarea">
 
-  <p>Caracteres: {{ nuevaTarea().length }}</p>
-  <br/>
+<p>Caracteres: {{ nuevaTarea().length }}</p>
 
-  <span>{{nuevaTarea()}}</span><br>
-
-  <button (click)="agregarTarea(); txtTarea.value = ''">
+<button (click)="agregarTarea(); txtTarea.value = ''">
   Añadir
-  </button>
+</button>
 
-  <br><br>
-  
-  <span>Mostramos las tareas</span><br/>
-  
-  @for (tarea of tareas(); track tarea.id) {
+<hr>
 
-    <span> {{ tarea.titulo }} </span> <button (click)="eliminarTarea(tarea.id)">  X  </button><br/>
-  }
+@for (tarea of tareas(); track tarea.id) {
 
-  <br/>
-  <span>Número de tareas {{tareas().length}}</span><br><br>
+  <li>
 
-  @for (tarea of tareas(); track tarea.id) {
+    {{ tarea.titulo }}
 
-    <li>
+    @if (tarea.completada) {
+      ✅ Completada
+    }
+    @else {
+      ⏳ Pendiente
+    }
 
-      {{ tarea.titulo }}
+    <button (click)="toggleCompletada(tarea.id)">
+      Completar
+    </button>
 
-      @if (tarea.completada) {
-        ✅ Completada
-      }
-      @else {
-        ⏳ Pendiente
-      }
+    <button (click)="eliminarTarea(tarea.id)">
+      X
+    </button>
 
-      <button
-        (click)="toggleCompletada(tarea.id)">
-        Completar
-      </button>
+  </li>
 
-    </li>
-
-  }
-
-  <p>
-  Pendientes: {{ pendientes() }}
-  </p>
-
-  <p>
-    Completadas: {{ completadas() }}
-  </p>
-
-<span>TAREAS LARGAS</span>
-
-@for (tarea of tareasLargas(); track $index) {
-  <li>{{ tarea.titulo }}</li>
 }
 
-Total tareas {{tareas().length}}
+<hr>
+
+<p>Total tareas: {{ tareas().length }}</p>
+
+<p>Pendientes: {{ pendientes() }}</p>
+
+<p>Completadas: {{ completadas() }}</p>

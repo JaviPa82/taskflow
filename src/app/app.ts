@@ -10,29 +10,29 @@ export class App {
 
   nuevaTarea = signal('');
 
-  tareas = signal<Task[]>([{
-    id: 1,
-    titulo: 'HTML',
-    completada: false
-  },
-  {
-    id: 2,
-    titulo: 'Aprender Angular',
-    completada: false
-  },
-  {
-    id: 3,
-    titulo: 'CSS',
-    completada: false
-  },
-  {
-    id: 4,
-    titulo: 'Practicar Signals',
-    completada: false
-  }]);
+  tareas = signal<Task[]>([
+    {
+      id: 1,
+      titulo: 'HTML',
+      completada: false
+    },
+    {
+      id: 2,
+      titulo: 'Aprender Angular',
+      completada: false
+    },
+    {
+      id: 3,
+      titulo: 'CSS',
+      completada: false
+    },
+    {
+      id: 4,
+      titulo: 'Practicar Signals',
+      completada: false
+    }
+  ]);
 
-  tareasLog = signal([ ...this.tareas() ])
-  
   pendientes = computed(() =>
     this.tareas()
       .filter(t => !t.completada)
@@ -64,43 +64,14 @@ export class App {
         completada: false
       }
     ]);
-    //this.tareasLargasConUpdate();
     this.nuevaTarea.set('');
-    this.mostrarSoloA();
-    
   }
 
-  eliminarTarea(indice: number) {
+  eliminarTarea(id: number) {
     this.tareas.update(lista =>
-      lista.filter(tarea => tarea.id !== indice)
+      lista.filter(tarea => tarea.id !== id)
     );
 
-  }
-
-  limpiarVacias(){
-    this.tareas.update(lista =>
-      lista.filter((valor, _) => valor.titulo.trim() !== '')
-    );
-  }
-
-  mostrarSoloA(){
-    
-    const log = this.tareas()
-      .filter( tareaLog => tareaLog.titulo.startsWith('A'));
-    console.log(log);
-  }
-
-  eliminarUltimaTarea(){
-    const indiceUltimoElemento = this.tareas().length - 1;
-    this.tareas.update(lista =>
-      lista.filter((_, i) => i < indiceUltimoElemento)
-    );
-  }
-
-  eliminarPares(){
-    this.tareas.update(lista =>
-      lista.filter((_, i) => i % 2 !== 0)
-    );
   }
 
   toggleCompletada(id: number) {
@@ -114,14 +85,5 @@ export class App {
           : tarea
       )
     );
-  }
-
-  tareasLargasConUpdate() {
-    this.tareas.update(lista =>
-      lista.filter(t => t.titulo.length > 10));
-  }
- tareasLargas() {
-    return this.tareas()
-    .filter(t => t.titulo.length > 10);
   }
 }
