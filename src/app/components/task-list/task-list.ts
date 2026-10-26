@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { Task } from '../../models/task.interface';
 import { TaskItem } from '../task-item/task-item';
 
@@ -12,4 +12,12 @@ export class TaskList {
 
   tareas = input<Task[]>([]);
 
+  completadaClick = output<number>();
+
+  onCompletada(id: number){
+
+    this.completadaClick.emit(id);
+
+  }
+  
 }

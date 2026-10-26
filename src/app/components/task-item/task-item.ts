@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { Task } from '../../models/task.interface';
 
 @Component({
@@ -11,4 +11,13 @@ export class TaskItem {
 
   tarea = input.required<Task>();
 
+  completadaClick = output<number>();
+
+  cambiarEstado() {
+
+    this.completadaClick.emit(
+      this.tarea().id
+    );
+  }
+  
 }

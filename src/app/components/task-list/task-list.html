@@ -3,7 +3,8 @@
   @for (tarea of tareas(); track tarea.id) {
 
     <app-task-item
-      [tarea]="tarea">
+        [tarea]="tarea"
+        (completadaClick)="onCompletada($event)">
     </app-task-item>
 
   }
