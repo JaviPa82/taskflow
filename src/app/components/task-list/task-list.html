@@ -1,0 +1,11 @@
+<ul>
+
+  @for (tarea of tareas(); track tarea.id) {
+
+    <app-task-item
+      [tarea]="tarea">
+    </app-task-item>
+
+  }
+
+</ul>

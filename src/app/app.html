@@ -1,50 +1,10 @@
-<h1>TaskFlow</h1>
+<app-header />
 
-<p>Mi primer proyecto con Angular moderno 🚀</p>
+<app-task-list
+  [tareas]="tareas()">
+</app-task-list>
 
-<input
-  #txtTarea
-  type="text"
-  (input)="actualizarTexto($event)"
-  placeholder="Nueva tarea">
-
-<p>Caracteres: {{ nuevaTarea().length }}</p>
-
-<button (click)="agregarTarea(); txtTarea.value = ''">
-  Añadir
-</button>
-
-<hr>
-
-@for (tarea of tareas(); track tarea.id) {
-
-  <li>
-
-    {{ tarea.titulo }}
-
-    @if (tarea.completada) {
-      ✅ Completada
-    }
-    @else {
-      ⏳ Pendiente
-    }
-
-    <button (click)="toggleCompletada(tarea.id)">
-      Completar
-    </button>
-
-    <button (click)="eliminarTarea(tarea.id)">
-      X
-    </button>
-
-  </li>
-
-}
-
-<hr>
-
-<p>Total tareas: {{ tareas().length }}</p>
-
-<p>Pendientes: {{ pendientes() }}</p>
-
-<p>Completadas: {{ completadas() }}</p>
+<app-footer
+  [pendientes]="pendientes()"
+  [completadas]="completadas()">
+</app-footer>

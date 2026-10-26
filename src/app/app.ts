@@ -1,9 +1,17 @@
 import { Component, signal, computed } from '@angular/core';
-import { Task } from './task.interface';
+import { Task } from './models/task.interface';
+import { Header } from './components/header/header';
+import { Footer } from './components/footer/footer';
+import { TaskList } from './components/task-list/task-list';
 
 @Component({
   selector: 'app-root',
   standalone: true,
+  imports: [
+    Header,
+    Footer,
+    TaskList
+  ],
   templateUrl: './app.html'
 })
 export class App {
