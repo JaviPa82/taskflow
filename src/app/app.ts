@@ -39,7 +39,7 @@ export class App {
     this.nuevaTarea.set(input.value);
   }
 
-  agregarTarea() {
+  onAgregarTarea() {
 
     const texto = this.nuevaTarea().trim();
 
@@ -47,63 +47,32 @@ export class App {
       return;
     }
 
-    this.taskService.tareas.update(lista => [
-      ...lista,
-      {
-        id: Date.now(),
-        titulo: texto,
-        completada: false
-      }
-    ]);
+    this.taskService.agregarTarea(texto);
 
     this.nuevaTarea.set('');
-  }
-
-  eliminarTarea(id: number) {
-
-    this.taskService.tareas.update(lista =>
-      lista.filter(t => t.id !== id)
-    );
 
   }
 
-  toggleCompletada(id: number) {
+  onEliminarTarea(id: number) {
 
-    this.taskService.tareas.update(lista =>
-      lista.map(tarea =>
-        tarea.id === id
-          ? {
-              ...tarea,
-              completada: !tarea.completada
-            }
-          : tarea
-      )
-    );
+    this.taskService.eliminarTarea(id);
+  
+  }
+
+  onToggleCompletada(id: number) {
+
+    this.taskService.toggleCompletada(id);
 
   }
 
-  editarTarea(id: number, nuevoTitulo: string) {
 
-    this.taskService.tareas.update(lista =>
-      lista.map(tarea =>
-        tarea.id === id
-          ? {
-              ...tarea,
-              titulo: nuevoTitulo
-            }
-          : tarea
-      )
-    );
-
-  }
-
-  editarTareaSeleccionada(id: number) {
+  onEditarTareaSeleccionada(id: number) {
 
     this.tareaSeleccionada.set(id);
 
   }
 
-  guardarEdicion() {
+  onGuardarEdicion() {
 
     const id = this.tareaSeleccionada();
 
@@ -117,7 +86,7 @@ export class App {
       return;
     }
 
-    this.editarTarea(id, texto);
+    this.taskService.editarTarea(id, texto);
 
     this.nuevaTarea.set('');
 

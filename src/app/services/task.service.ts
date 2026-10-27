@@ -29,4 +29,54 @@ export class TaskService {
       completada: false
     }
   ]);
+
+  agregarTarea(texto: string) {
+
+    this.tareas.update(lista => [
+      ...lista,
+      {
+        id: Date.now(),
+        titulo: texto,
+        completada: false
+      }
+    ]);
+
+  }
+  eliminarTarea(id: number) {
+
+    this.tareas.update(lista =>
+      lista.filter(t => t.id !== id)
+    );
+
+  }
+
+  toggleCompletada (id: number) {
+
+    this.tareas.update(lista =>
+      lista.map(tarea =>
+        tarea.id === id
+          ? {
+              ...tarea,
+              completada: !tarea.completada
+            }
+          : tarea
+      )
+    );
+  }
+
+  editarTarea (id: number, nuevoTitulo: string) {
+
+    this.tareas.update(lista =>
+      lista.map(tarea =>
+        tarea.id === id
+          ? {
+              ...tarea,
+              titulo: nuevoTitulo
+            }
+          : tarea
+      )
+    );
+
+  }
+
 }

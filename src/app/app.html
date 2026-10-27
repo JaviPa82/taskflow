@@ -6,19 +6,19 @@
   (input)="actualizarTexto($event)"
   placeholder="Nueva tarea">
 
-<button (click)="guardarEdicion()">
+<button (click)="onGuardarEdicion()">
   Guardar edición
 </button>
 
-<button (click)="agregarTarea()">
+<button (click)="onAgregarTarea()">
   Añadir tarea
 </button>
 
 <app-task-list
   [tareas]="taskService.tareas()"
-  (completadaClick)="toggleCompletada($event)"
-  (eliminarClick)="eliminarTarea($event)"
-  (modificarClick)="editarTareaSeleccionada($event)">
+  (completadaClick)="onToggleCompletada($event)"
+  (eliminarClick)="onEliminarTarea($event)"
+  (modificarClick)="onEditarTareaSeleccionada($event)">
 </app-task-list>
 
 <app-footer
