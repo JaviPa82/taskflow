@@ -11,7 +11,7 @@ import { TaskItem } from '../task-item/task-item';
 export class TaskList {
 
   tareas = input<Task[]>([]);
-
+  
   completadaClick = output<number>();
 
   onCompletada(id: number){
@@ -19,5 +19,16 @@ export class TaskList {
     this.completadaClick.emit(id);
 
   }
-  
+
+  eliminarClick = output<number>();
+
+  eliminarTarea(id: number) {
+    this.eliminarClick.emit(id);
+  }
+
+  modificarClick = output<number>();
+
+  editarTarea(id: number) {
+    this.modificarClick.emit(id);
+  }
 }

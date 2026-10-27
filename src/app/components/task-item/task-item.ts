@@ -1,6 +1,7 @@
 import { Component, input, output } from '@angular/core';
 import { Task } from '../../models/task.interface';
 
+
 @Component({
   selector: 'app-task-item',
   imports: [],
@@ -9,6 +10,7 @@ import { Task } from '../../models/task.interface';
 })
 export class TaskItem {
 
+ 
   tarea = input.required<Task>();
 
   completadaClick = output<number>();
@@ -19,5 +21,14 @@ export class TaskItem {
       this.tarea().id
     );
   }
-  
+
+  eliminarClick = output<number>();
+  eliminar() {
+    this.eliminarClick.emit(this.tarea().id);
+  }
+
+  modificarClick = output<number>();
+  modificar() {
+    this.modificarClick .emit(this.tarea().id);
+  }
 }

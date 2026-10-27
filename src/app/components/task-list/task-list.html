@@ -4,7 +4,9 @@
 
     <app-task-item
         [tarea]="tarea"
-        (completadaClick)="onCompletada($event)">
+        (completadaClick)= " onCompletada($event) "
+        (eliminarClick)= " eliminarTarea($event) "
+        (modificarClick) = " editarTarea($event) ">
     </app-task-item>
 
   }

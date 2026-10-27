@@ -1,8 +1,24 @@
 <app-header />
 
+<input
+  type="text"
+  [value]="nuevaTarea()"
+  (input)="actualizarTexto($event)"
+  placeholder="Nueva tarea">
+
+<button (click)="guardarEdicion()">
+  Guardar edición
+</button>
+
+<button (click)="agregarTarea()">
+  Añadir tarea
+</button>
+
 <app-task-list
-  [tareas]="tareas()"
-  (completadaClick)="toggleCompletada($event)">
+  [tareas]="taskService.tareas()"
+  (completadaClick)="toggleCompletada($event)"
+  (eliminarClick)="eliminarTarea($event)"
+  (modificarClick)="editarTareaSeleccionada($event)">
 </app-task-list>
 
 <app-footer
