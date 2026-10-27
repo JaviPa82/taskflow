@@ -1,11 +1,18 @@
 import { Injectable, signal } from '@angular/core';
 import { Task } from '../models/task.interface';
 
+
 @Injectable({
   providedIn: 'root'
 })
 
 export class TaskService {
+    
+    constructor() {
+        this.cargar();
+      }
+
+    private readonly STORAGE_KEY = 'taskflow_tasks';
 
     tareas = signal<Task[]>([
     {
@@ -41,6 +48,7 @@ export class TaskService {
       }
     ]);
 
+    this.guardar();
   }
   eliminarTarea(id: number) {
 
@@ -48,6 +56,7 @@ export class TaskService {
       lista.filter(t => t.id !== id)
     );
 
+    this.guardar();
   }
 
   toggleCompletada (id: number) {
@@ -62,6 +71,9 @@ export class TaskService {
           : tarea
       )
     );
+
+    this.guardar();
+
   }
 
   editarTarea (id: number, nuevoTitulo: string) {
@@ -77,6 +89,29 @@ export class TaskService {
       )
     );
 
+    this.guardar();
+    
+  }
+
+  private guardar(): void {
+    localStorage.setItem(
+      this.STORAGE_KEY,
+      JSON.stringify(this.tareas())
+    );
+  }
+
+  private cargar(): void {
+    const datos = localStorage.getItem(
+      this.STORAGE_KEY
+    );
+
+    if (!datos) {
+      return;
+    }
+
+    this.tareas.set(
+      JSON.parse(datos)
+    );
   }
 
 }
