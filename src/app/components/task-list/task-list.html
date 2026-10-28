@@ -12,3 +12,16 @@
   }
 
 </ul>
+<ul>
+
+  @for (tarea of papelera(); track tarea.id) {
+
+    <app-task-papelera
+        [tarea]="tarea"
+        (restaurarClick) = " restaurarTarea($event) "
+        (eliminarDefinitivoClick) = " eliminarDefinitivamente($event) ">
+    </app-task-papelera>
+
+  }
+
+</ul>

@@ -16,12 +16,16 @@
 
 <app-task-list
   [tareas]="taskService.tareas()"
+  [papelera]="taskService.papelera()"
   (completadaClick)="onToggleCompletada($event)"
   (eliminarClick)="onEliminarTarea($event)"
-  (modificarClick)="onEditarTareaSeleccionada($event)">
+  (modificarClick)="onEditarTareaSeleccionada($event)"
+  (restaurarClick) = " onRestaurarTarea($event) "
+  (eliminarDefinitivoClick) = " onEliminarDefinitivamente($event) ">
 </app-task-list>
 
 <app-footer
   [pendientes]="pendientes()"
   [completadas]="completadas()">
 </app-footer>
+<p>Papelera: {{ taskService.totalPapelera() }}</p>

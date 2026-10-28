@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, computed } from '@angular/core';
 import { Task } from '../models/task.interface';
 
 
@@ -13,29 +13,14 @@ export class TaskService {
       }
 
     private readonly STORAGE_KEY = 'taskflow_tasks';
+    private readonly TRASH_KEY  = 'taskflow_trash';
 
-    tareas = signal<Task[]>([
-    {
-      id: 1,
-      titulo: 'HTML',
-      completada: false
-    },
-    {
-      id: 2,
-      titulo: 'Aprender Angular',
-      completada: false
-    },
-    {
-      id: 3,
-      titulo: 'CSS',
-      completada: false
-    },
-    {
-      id: 4,
-      titulo: 'Practicar Signals',
-      completada: false
-    }
-  ]);
+    papelera = signal<Task[]>([]);
+    totalPapelera = computed(
+      () => this.papelera().length
+    );
+
+    tareas = signal<Task[]>([]);
 
   agregarTarea(texto: string) {
 
@@ -44,13 +29,25 @@ export class TaskService {
       {
         id: Date.now(),
         titulo: texto,
-        completada: false
+        completada: false,
+        fechaCreacion: new Date().toISOString()
       }
     ]);
 
     this.guardar();
   }
   eliminarTarea(id: number) {
+    const tarea = this.tareas()
+    .find(t => t.id === id);
+
+    if (!tarea) {
+    return;
+    }
+     this.papelera.update(lista => [
+        ...lista,
+        tarea
+      ]);
+
 
     this.tareas.update(lista =>
       lista.filter(t => t.id !== id)
@@ -98,20 +95,61 @@ export class TaskService {
       this.STORAGE_KEY,
       JSON.stringify(this.tareas())
     );
+
+    localStorage.setItem(
+      this.TRASH_KEY ,
+      JSON.stringify(this.papelera())
+    );
   }
 
   private cargar(): void {
+
     const datos = localStorage.getItem(
       this.STORAGE_KEY
     );
 
-    if (!datos) {
-      return;
+    if (datos) {
+      this.tareas.set(
+        JSON.parse(datos)
+      );
     }
 
-    this.tareas.set(
-      JSON.parse(datos)
+    const datos2 = localStorage.getItem(
+      this.TRASH_KEY
     );
+
+    if (datos2) {
+      this.papelera.set(
+        JSON.parse(datos2)
+      );
+    }
   }
 
+  restaurarTarea(id: number){
+
+    const tarea = this.papelera()
+    .find(t => t.id === id);
+    
+    if (!tarea) {
+    return;
+    }
+
+    this.tareas.update(lista => [
+      ...lista,
+      tarea]);
+
+    this.papelera.update(lista =>
+    lista.filter(t => t.id !== id)
+    );
+
+    this.guardar();
+  }
+
+  eliminarDefinitivamente(id: number){
+    this.papelera.update(lista =>
+      lista.filter(t => t.id !== id)
+    );
+
+    this.guardar();
+  }
 }

@@ -93,4 +93,15 @@ export class App {
     this.tareaSeleccionada.set(null);
   }
 
+  onRestaurarTarea(id: number) {
+
+    this.taskService.restaurarTarea(id);
+
+  }
+
+  onEliminarDefinitivamente(id: number) {
+
+    this.taskService.eliminarDefinitivamente(id);
+
+  }
 }
