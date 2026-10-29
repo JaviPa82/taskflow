@@ -6,14 +6,15 @@
         [tarea]="tarea"
         (completadaClick)= " onCompletada($event) "
         (eliminarClick)= " eliminarTarea($event) "
-        (modificarClick) = " editarTarea($event) ">
+        (modificarClick) = " editarTarea($event) "
+        [mostrarEditar]= " mostrarEditar() ">
     </app-task-item>
 
   }
 
 </ul>
 <ul>
-
+  <h2>Tareas en la papelera</h2>
   @for (tarea of papelera(); track tarea.id) {
 
     <app-task-papelera

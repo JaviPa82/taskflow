@@ -1,0 +1,9 @@
+<h2>Pendientes</h2>
+
+<app-task-list
+  [tareas]="tareasPendientes()"
+  [papelera]="[]"
+  (completadaClick)="onToggleCompletada($event)"
+  (eliminarClick)="onEliminarTarea($event)"
+  [mostrarEditar]="false">
+</app-task-list>

@@ -14,7 +14,10 @@
   <button (click) = "eliminar()">
     Eliminar
   </button>
-  <button (click) = "modificar()">
-    Modificar
+
+ @if (mostrarEditar()) {
+  <button (click)="modificar()">
+    Editar
   </button>
+}
 </li>

@@ -1,0 +1,9 @@
+<h2>Completadas</h2>
+
+<app-task-list
+  [tareas]="tareasCompletadas()"
+  [papelera]="[]"
+  (completadaClick)="onToggleCompletada($event)"
+  (eliminarClick)="onEliminarTarea($event)"
+  [mostrarEditar]="false">
+</app-task-list>

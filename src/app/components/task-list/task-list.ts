@@ -16,6 +16,8 @@ export class TaskList {
   
   completadaClick = output<number>();
 
+  mostrarEditar = input(true);
+
   onCompletada(id: number){
 
     this.completadaClick.emit(id);

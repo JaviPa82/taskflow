@@ -8,19 +8,41 @@ import { Task } from '../models/task.interface';
 
 export class TaskService {
     
-    constructor() {
-        this.cargar();
-      }
+  constructor() {
+      this.cargar();
+    }
 
-    private readonly STORAGE_KEY = 'taskflow_tasks';
-    private readonly TRASH_KEY  = 'taskflow_trash';
+  private readonly STORAGE_KEY = 'taskflow_tasks';
+  private readonly TRASH_KEY  = 'taskflow_trash';
 
-    papelera = signal<Task[]>([]);
-    totalPapelera = computed(
-      () => this.papelera().length
-    );
+  papelera = signal<Task[]>([]);
+  
+  totalPapelera = computed(
+    () => this.papelera().length
+  );
+  pendientes = computed(() =>
+    this.tareas()
+      .filter(t => !t.completada)
+      .length
+  );
 
-    tareas = signal<Task[]>([]);
+  completadas = computed(() =>
+    this.tareas()
+      .filter(t => t.completada)
+      .length
+  );
+
+  tareasPendientes = computed(() =>
+    this.tareas()
+      .filter(t => !t.completada)
+  );
+
+  tareasCompletadas = computed(() =>
+    this.tareas()
+      .filter(t => t.completada)
+  );
+  
+  tareas = signal<Task[]>([]);
 
   agregarTarea(texto: string) {
 

@@ -12,6 +12,7 @@ export class TaskItem {
 
  
   tarea = input.required<Task>();
+  mostrarEditar = input();
 
   completadaClick = output<number>();
 

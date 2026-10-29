@@ -1,20 +1,26 @@
 <app-header />
 
-<input
-  type="text"
-  [value]="nuevaTarea()"
-  (input)="actualizarTexto($event)"
-  placeholder="Nueva tarea">
+<a routerLink="/todas">
+  Todas
+</a>
+<br>
+<a routerLink="/pendientes">
+  Pendientes
+</a>
+<br>
+<a routerLink="/completadas">
+  Completadas
+</a>
+<br>
+<a routerLink="/estadisticas">
+  Estadísticas
+</a>
+<hr>
 
-<button (click)="onGuardarEdicion()">
-  Guardar edición
-</button>
+<router-outlet />
 
-<button (click)="onAgregarTarea()">
-  Añadir tarea
-</button>
 
-<app-task-list
+<!--<app-task-list
   [tareas]="taskService.tareas()"
   [papelera]="taskService.papelera()"
   (completadaClick)="onToggleCompletada($event)"
@@ -29,3 +35,4 @@
   [completadas]="completadas()">
 </app-footer>
 <p>Papelera: {{ taskService.totalPapelera() }}</p>
+-->
