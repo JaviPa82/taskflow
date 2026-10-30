@@ -24,5 +24,17 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/statistics/statistics')
         .then(m => m.Statistics)
+    },
+    {
+    path: 'api-tasks',
+    loadComponent: () =>
+      import('./pages/api-tasks/api-tasks')
+        .then(m => m.ApiTasks)
+    },
+    {
+    path: 'api-statistics',
+    loadComponent: () =>
+      import('./pages/api-statistics/api-statistics')
+        .then(m => m.ApiStatistics)
     }
 ];

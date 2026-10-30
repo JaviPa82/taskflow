@@ -4,3 +4,5 @@ export interface Task {
   completada: boolean;
   fechaCreacion:string;
 }
+
+export type NuevaTask = Omit<Task, 'id'>;

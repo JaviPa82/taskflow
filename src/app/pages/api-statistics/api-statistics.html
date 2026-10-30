@@ -1,0 +1,27 @@
+<h2>📊 Estadísticas API</h2>
+
+<p>
+  Total tareas:
+  {{ total }}
+</p>
+
+<p>
+  ✅ Completadas:
+  {{ completadas }}
+</p>
+
+<p>
+  ⏳ Pendientes:
+  {{ pendientes }}
+</p>
+
+<p>
+  📈 Porcentaje completado:
+  {{ porcentaje }}%
+</p>
+<div class="barra">
+  <div
+    class="progreso"
+    [style.width.%]="porcentaje">
+  </div>
+</div>

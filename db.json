@@ -1,0 +1,29 @@
+{
+  "tasks": [
+    {
+      "id": "1",
+      "titulo": "Aprender pot",
+      "completada": true,
+      "fechaCreacion": "2026-10-29T10:00:00.000Z"
+    },
+    {
+      "titulo": "Aprender POST",
+      "completada": true,
+      "fechaCreacion": "2026-10-29T11:45:52.106Z",
+      "id": "qtySifX4zoI"
+    },
+    {
+      "titulo": "APrender cosas",
+      "completada": false,
+      "fechaCreacion": "2026-10-30T11:00:15.601Z",
+      "id": "0jLvVSbr8Ig"
+    },
+    {
+      "titulo": "Aprender magia",
+      "completada": true,
+      "fechaCreacion": "2026-10-30T11:01:29.282Z",
+      "id": "f1cYwl0T2ZM"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

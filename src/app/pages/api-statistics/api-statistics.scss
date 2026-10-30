@@ -1,0 +1,20 @@
+.barra {
+  width: 300px;
+  height: 20px;
+  background: #ddd;
+}
+
+.progreso {
+  height: 100%;
+  background: green;
+}
+
+.progreso {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    #4caf50,
+    #8bc34a
+  );
+  transition: width 0.5s ease;
+}

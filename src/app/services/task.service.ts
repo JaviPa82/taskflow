@@ -174,4 +174,10 @@ export class TaskService {
 
     this.guardar();
   }
+
+  buscarTarea(id:number|string){
+
+    return this.tareas().find(t => t.id === id)
+
+  }
 }

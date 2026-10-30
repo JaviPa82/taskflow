@@ -1,0 +1,53 @@
+<p>Desde la API</p>
+   
+<input type="text"
+  [value]="nuevaTarea()"
+  placeholder="Nueva tarea"
+  (input)="actualizarTexto($event)">
+<button (click)="crearTarea()">Añadir</button>
+
+
+@for (task of tasks; track task.id) {
+  <div>
+  @if (tareaEditando === task.id) {
+ 
+    <input
+      [value]="textoEdicion()"
+      (input)="textoEdicion.set($any($event.target).value)"
+    >
+
+    <button (click)="guardarEdicion(task)">
+      Guardar
+    </button>
+
+    <button (click)="cancelarEdicion()">
+      Cancelar
+    </button>
+
+  }
+
+  @else {
+
+    @if (task.completada) {
+      ✅ {{ task.titulo }}
+    }
+    @else {
+      ⏳ {{ task.titulo }}
+    }
+
+    <button (click)="onEditar(task)">
+      Editar
+    </button>
+
+    <button (click)="onToggleCompletada(task)">
+      Completar
+    </button>
+
+    <button (click)="onDelete(task.id)">
+      Eliminar
+    </button>
+
+  }
+  </div>
+}
+     
