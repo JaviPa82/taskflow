@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ApiTaskService } from '../../services/api-task';
+import { ApiTaskService } from '../../../core/services/api-task';
 import { ChangeDetectorRef } from '@angular/core';
 
 

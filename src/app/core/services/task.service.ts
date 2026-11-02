@@ -16,10 +16,12 @@ export class TaskService {
   private readonly TRASH_KEY  = 'taskflow_trash';
 
   papelera = signal<Task[]>([]);
-  
+  tareas = signal<Task[]>([]);
+
   totalPapelera = computed(
     () => this.papelera().length
   );
+
   pendientes = computed(() =>
     this.tareas()
       .filter(t => !t.completada)
@@ -42,8 +44,6 @@ export class TaskService {
       .filter(t => t.completada)
   );
   
-  tareas = signal<Task[]>([]);
-
   agregarTarea(texto: string) {
 
     this.tareas.update(lista => [
@@ -175,9 +175,7 @@ export class TaskService {
     this.guardar();
   }
 
-  buscarTarea(id:number|string){
-
+  buscarTarea(id:number|string): Task | undefined{
     return this.tareas().find(t => t.id === id)
-
   }
 }

@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { Task } from '../../models/task.interface';
+import { Task } from '../../../../core/models/task.interface';
 import { TaskItem } from '../task-item/task-item';
 import { TaskPapelera } from '../task-papelera/task-papelera';
 
@@ -13,38 +13,34 @@ export class TaskList {
 
   tareas = input<Task[]>([]);
   papelera = input<Task[]>([]);
-  
-  completadaClick = output<number>();
-
   mostrarEditar = input(true);
+  
+  eliminarClick = output<number | string>();
+  modificarClick = output<number | string>();
+  restaurarClick = output<number | string>();
+  eliminarDefinitivoClick = output<number | string>();
+  completadaClick = output<number | string>();
 
-  onCompletada(id: number){
-
+  onCompletada(id: number | string){
     this.completadaClick.emit(id);
-
   }
 
-  eliminarClick = output<number>();
-
-  eliminarTarea(id: number) {
+  eliminarTarea(id: number | string) {
     this.eliminarClick.emit(id);
   }
 
-  modificarClick = output<number>();
 
-  editarTarea(id: number) {
+  editarTarea(id: number | string) {
     this.modificarClick.emit(id);
   }
 
-  restaurarClick = output<number>();
 
-  restaurarTarea(id: number) {
+  restaurarTarea(id: number | string) {
     this.restaurarClick.emit(id);
   }
 
-  eliminarDefinitivoClick = output<number>();
   
-  eliminarDefinitivamente(id: number) {
+  eliminarDefinitivamente(id: number | string) {
     this.eliminarDefinitivoClick.emit(id);
   }
 }

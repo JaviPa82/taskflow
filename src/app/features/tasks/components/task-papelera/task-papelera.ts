@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { Task } from '../../models/task.interface'
+import { Task } from '../../../../core/models/task.interface'
 
 @Component({
   selector: 'app-task-papelera',
@@ -10,9 +10,9 @@ import { Task } from '../../models/task.interface'
 export class TaskPapelera {
 
   tarea = input.required<Task>();
-  restaurarClick = output<number>();
+  restaurarClick = output<number | string>();
 
-  eliminarDefinitivoClick = output<number>();
+  eliminarDefinitivoClick = output<number | string>();
 
   restaurar() {
     this.restaurarClick.emit(

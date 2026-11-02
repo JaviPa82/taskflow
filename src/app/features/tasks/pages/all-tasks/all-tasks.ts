@@ -1,8 +1,8 @@
 import { Component, computed, inject, input, signal } from '@angular/core';
-import { TaskService } from '../../services/task.service';
+import { TaskService } from '../../../../core/services/task.service';
 import { TaskList } from '../../components/task-list/task-list';
-import { ApiTaskService } from '../../services/api-task';
-import { Task } from '../../models/task.interface'
+import { ApiTaskService } from '../../../../core/services/api-task';
+import { Task } from '../../../../core/models/task.interface'
 
 
 @Component({

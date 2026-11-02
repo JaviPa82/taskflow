@@ -1,5 +1,5 @@
 import { Component, computed, inject,signal } from '@angular/core';
-import { TaskService } from '../../services/task.service';
+import { TaskService } from '../../../../core/services/task.service';
 import { TaskList } from '../../components/task-list/task-list';
 
 @Component({

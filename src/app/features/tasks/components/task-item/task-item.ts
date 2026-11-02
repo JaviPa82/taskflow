@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { Task } from '../../models/task.interface';
+import { Task } from '../../../../core/models/task.interface';
 
 
 @Component({
@@ -10,25 +10,24 @@ import { Task } from '../../models/task.interface';
 })
 export class TaskItem {
 
- 
   tarea = input.required<Task>();
-  mostrarEditar = input();
 
-  completadaClick = output<number>();
+  mostrarEditar = input<boolean>();
+
+  completadaClick = output<number | string>();
+  eliminarClick = output<number | string>();
+  modificarClick = output<number | string>();
 
   cambiarEstado() {
-
     this.completadaClick.emit(
       this.tarea().id
     );
   }
-
-  eliminarClick = output<number>();
+ 
   eliminar() {
     this.eliminarClick.emit(this.tarea().id);
   }
 
-  modificarClick = output<number>();
   modificar() {
     this.modificarClick .emit(this.tarea().id);
   }

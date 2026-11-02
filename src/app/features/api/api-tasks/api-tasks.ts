@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, ChangeDetectorRef,signal} from '@angular/core';
-import { ApiTaskService } from '../../services/api-task'
-import { Task, NuevaTask } from '../../models/task.interface'
+import { ApiTaskService } from '../../../core/services/api-task'
+import { Task } from '../../../core/models/task.interface'
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -23,19 +23,16 @@ export class ApiTasks implements OnInit{
   }
 
   onToggleCompletada(task: Task) {
-    console.log('ANTES', task);
 
     const actualizada = {
       ...task,
       completada: !task.completada
     };
 
-    console.log('DESPUES', actualizada);
     
     this.apiTaskService
       .actualizarTarea(actualizada)
       .subscribe((resultado) => {
-        console.log('PUT OK', resultado);
         this.cargarTareas();
 
     });
@@ -70,7 +67,6 @@ export class ApiTasks implements OnInit{
       })
       .subscribe(resultado => {
 
-        console.log('Creada:', resultado);
         this.cargarTareas();
 
       });
