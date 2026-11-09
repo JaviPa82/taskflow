@@ -16,7 +16,7 @@ export class AllTasks {
 tareasApi: Task[] = [];
 taskService = inject(TaskService);
 nuevaTarea = signal('');
-tareaSeleccionada = signal<number | null>(null);
+tareaSeleccionada = signal<number | string | null>(null);
 
 apiTaskService = inject(ApiTaskService);
 
@@ -77,13 +77,13 @@ ngOnInit() {
 
   }*/
 
-  onEliminarTarea(id: number) {
+  onEliminarTarea(id: number | string) {
 
     this.taskService.eliminarTarea(id);
   
   }
 
-  onToggleCompletada(id: number) {
+  onToggleCompletada(id: number | string) {
 
     //this.taskService.toggleCompletada(id);
 
@@ -142,19 +142,19 @@ ngOnInit() {
 
     this.tareaSeleccionada.set(null);
   }
-  onEditarTareaSeleccionada(id: number) {
+  onEditarTareaSeleccionada(id: number | string) {
 
     this.tareaSeleccionada.set(id);
 
   }
 
-  onRestaurarTarea(id: number) {
+  onRestaurarTarea(id: number| string) {
 
     this.taskService.restaurarTarea(id);
 
   }
 
-  onEliminarDefinitivamente(id: number) {
+  onEliminarDefinitivamente(id: number | string) {
 
     this.taskService.eliminarDefinitivamente(id);
 

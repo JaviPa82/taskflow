@@ -15,13 +15,13 @@ export class CompletedTasks {
 
   tareasCompletadas =  this.taskService.tareasCompletadas;
 
-  onEliminarTarea(id: number) {
+  onEliminarTarea(id: number | string) {
 
     this.taskService.eliminarTarea(id);
   
   }
 
-  onToggleCompletada(id: number) {
+  onToggleCompletada(id: number | string) {
 
     this.taskService.toggleCompletada(id);
 

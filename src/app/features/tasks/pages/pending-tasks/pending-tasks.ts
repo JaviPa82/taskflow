@@ -1,5 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { TaskService } from '../../../../core/services/task.service';
+import { AuthService } from '../../../../core/services/auth';
 import { TaskList } from '../../components/task-list/task-list';
 
 @Component({
@@ -8,18 +9,25 @@ import { TaskList } from '../../components/task-list/task-list';
   imports: [TaskList],
   templateUrl: './pending-tasks.html',
 })
+
+
 export class PendingTasks {
 
+  constructor() {
+
+  }
   taskService = inject(TaskService);
+
+  authService = inject(AuthService);
 
   tareasPendientes = this.taskService.tareasPendientes;
 
-  onToggleCompletada(id: number) {
+  onToggleCompletada(id: number | string) {
 
     this.taskService.toggleCompletada(id);
   }
   
-  onEliminarTarea(id: number) {
+  onEliminarTarea(id: number |string) {
 
     this.taskService.eliminarTarea(id);
   

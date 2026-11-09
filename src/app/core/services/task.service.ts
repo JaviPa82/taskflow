@@ -58,7 +58,7 @@ export class TaskService {
 
     this.guardar();
   }
-  eliminarTarea(id: number) {
+  eliminarTarea(id: number |string) {
     const tarea = this.tareas()
     .find(t => t.id === id);
 
@@ -78,7 +78,7 @@ export class TaskService {
     this.guardar();
   }
 
-  toggleCompletada (id: number) {
+  toggleCompletada (id: number | string) {
 
     this.tareas.update(lista =>
       lista.map(tarea =>
@@ -95,7 +95,7 @@ export class TaskService {
 
   }
 
-  editarTarea (id: number, nuevoTitulo: string) {
+  editarTarea (id: number | string, nuevoTitulo: string) {
 
     this.tareas.update(lista =>
       lista.map(tarea =>
@@ -147,7 +147,7 @@ export class TaskService {
     }
   }
 
-  restaurarTarea(id: number){
+  restaurarTarea(id: number | string){
 
     const tarea = this.papelera()
     .find(t => t.id === id);
@@ -167,7 +167,7 @@ export class TaskService {
     this.guardar();
   }
 
-  eliminarDefinitivamente(id: number){
+  eliminarDefinitivamente(id: number | string){
     this.papelera.update(lista =>
       lista.filter(t => t.id !== id)
     );

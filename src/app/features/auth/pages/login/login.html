@@ -1,0 +1,18 @@
+<h2>Login</h2>
+
+<input
+  type="text"
+  placeholder="Usuario"
+  (input)="actualizarUsuario($event)">
+
+<input
+  type="password"
+  placeholder="Contraseña"
+  (input)="actualizarPassword($event)">
+
+<button
+  (click)="login()">
+
+  Entrar
+
+</button>
