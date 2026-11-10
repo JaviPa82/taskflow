@@ -20,7 +20,7 @@
 <h2>Todas</h2>
 
 <app-task-list
-  [tareas]="taskService.tareas()"
+  [tareas]="tareasNgRx()"
   [papelera]="taskService.papelera()"
   (modificarClick)="onEditarTareaSeleccionada($event)"
   (restaurarClick) = " onRestaurarTarea($event) "

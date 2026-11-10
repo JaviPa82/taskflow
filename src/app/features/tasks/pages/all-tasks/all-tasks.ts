@@ -4,6 +4,13 @@ import { TaskList } from '../../components/task-list/task-list';
 import { ApiTaskService } from '../../../../core/services/api-task';
 import { Task } from '../../../../core/models/task.interface'
 
+import { toSignal } from '@angular/core/rxjs-interop';
+
+import { Store } from '@ngrx/store';
+import { AppState } from '../../store/task.state';
+import { addTask,editTask,deleteTask } from '../../store/task.actions';
+import { selectTasks } from '../../store/task.selectors';
+
 
 @Component({
   selector: 'app-all-tasks',
@@ -13,12 +20,23 @@ import { Task } from '../../../../core/models/task.interface'
 })
 export class AllTasks {
 
+private store = inject(Store<AppState>);
+
 tareasApi: Task[] = [];
 taskService = inject(TaskService);
 nuevaTarea = signal('');
 tareaSeleccionada = signal<number | string | null>(null);
 
 apiTaskService = inject(ApiTaskService);
+
+tareasNgRx = toSignal(
+  this.store.select(selectTasks),
+  {
+    initialValue: []
+  }
+);
+
+
 
 ngOnInit() {
   this.apiTaskService
@@ -42,7 +60,7 @@ ngOnInit() {
     }
 
     this.taskService.agregarTarea(texto);
-
+    
     this.nuevaTarea.set('');
 
     this.apiTaskService
@@ -79,8 +97,10 @@ ngOnInit() {
 
   onEliminarTarea(id: number | string) {
 
-    this.taskService.eliminarTarea(id);
-  
+    //this.taskService.eliminarTarea(id);
+    this.store.dispatch(
+      deleteTask({ id })
+    );
   }
 
   onToggleCompletada(id: number | string) {
@@ -117,7 +137,13 @@ ngOnInit() {
       return;
     }
 
-    this.taskService.agregarTarea(texto);
+    //this.taskService.agregarTarea(texto);
+    this.store.dispatch(
+      addTask({
+        title: texto
+      })
+    );
+
 
     this.nuevaTarea.set('');
 
@@ -136,7 +162,12 @@ ngOnInit() {
       return;
     }
 
-    this.taskService.editarTarea(id, texto);
+    //this.taskService.editarTarea(id, texto);
+    this.store.dispatch(editTask({
+        id,
+        titulo: texto
+      })
+    );
 
     this.nuevaTarea.set('');
 
