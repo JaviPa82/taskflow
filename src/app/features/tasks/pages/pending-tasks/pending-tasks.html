@@ -7,3 +7,42 @@
   (eliminarClick)="onEliminarTarea($event)"
   [mostrarEditar]="false">
 </app-task-list>
+
+<button (click)="probarNgRx()">
+  Probar NgRx
+</button>
+@for (task of (tasks$ | async); track task.id) {
+  <li>{{ task.titulo }}</li>
+}
+
+<button (click)="borrarPrimera()">
+  Borrar primera tarea NgRx
+</button>
+
+<h3>Pendientes NgRx</h3>
+
+@for (task of (pendingTasks$ | async); track task.id) {
+  <li>{{ task.titulo }} {{ task.completada }}</li>
+}
+
+<h3>Completadas NgRx</h3>
+
+@for (task of (completedTasks$ | async); track task.id) {
+  <li>{{ task.titulo }} {{ task.completada }}</li>
+}
+
+<button (click)="togglePrimera()">
+  Toggle primera tarea NgRx
+</button>
+<br><br>
+<button (click)="editarPrimera()">
+  Editar primera tarea NgRx
+</button>
+
+<h3>Estadísticas NgRx</h3>
+
+<p>Total: {{ totalCount$ | async }}</p>
+
+<p>Pendientes: {{ pendingCount$ | async }}</p>
+
+<p>Completadas: {{ completedCount$ | async }}</p>
