@@ -1,10 +1,16 @@
 import { createReducer, on } from '@ngrx/store';
 
 import { initialState } from './task.state';
-import { addTask, deleteTask, toggleTask, editTask } from './task.actions';
+import { addTask, deleteTask, toggleTask, editTask, moveToTrash, restoreTask, loadTasks} from './task.actions';
 
 export const taskReducer = createReducer(
     initialState,
+
+    on(loadTasks, (state, { tasks, trash }) => ({
+        ...state,
+        tasks,
+        trash
+    })),
 
     on(addTask, (state, { title }) => ({
         ...state,
@@ -20,13 +26,34 @@ export const taskReducer = createReducer(
         }
         ]
     })),
-    on(deleteTask, (state, { id }) => ({
-        ...state,
+    on(moveToTrash, (state, { id }) => {
 
-        tasks: state.tasks.filter(
-            task => task.id !== id
-        )
-    })),
+        const task =
+            state.tasks.find(
+            t => t.id === id
+            );
+
+        if (!task) {
+            return state;
+        }
+
+        return {
+
+            ...state,
+
+            tasks:
+            state.tasks.filter(
+                t => t.id !== id
+            ),
+
+            trash: [
+            ...state.trash,
+            task
+            ]
+
+        };
+
+        }),
     on(toggleTask, (state, { id }) => ({
         ...state,
 
@@ -50,7 +77,35 @@ export const taskReducer = createReducer(
             }
         : task
     )
-    }))
+    })),
+    on(restoreTask, (state, { id }) => {
+
+        const task =
+            state.trash.find(
+            t => t.id === id
+            );
+
+        if (!task) {
+            return state;
+        }
+
+        return {
+
+            ...state,
+
+            tasks: [
+            ...state.tasks,
+            task
+            ],
+
+            trash:
+            state.trash.filter(
+                t => t.id !== id
+            )
+
+        };
+
+    })
 
   
 );

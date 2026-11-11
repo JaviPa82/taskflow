@@ -6,10 +6,12 @@ import { Task } from '../../../../core/models/task.interface'
 
 import { toSignal } from '@angular/core/rxjs-interop';
 
+import { selectTaskState } from '../../store/task.selectors';
+
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/task.state';
-import { addTask,editTask,deleteTask } from '../../store/task.actions';
-import { selectTasks } from '../../store/task.selectors';
+import { addTask,editTask,deleteTask,moveToTrash,restoreTask,loadTasks } from '../../store/task.actions';
+import { selectTasks,selectTrash } from '../../store/task.selectors';
 
 
 @Component({
@@ -35,16 +37,40 @@ tareasNgRx = toSignal(
     initialValue: []
   }
 );
+trash$ = this.store.select(selectTrash);
 
-
+trashNgRx = toSignal(
+  this.store.select(selectTrash),
+  {
+    initialValue: []
+  }
+);
 
 ngOnInit() {
+
+  const tasks = JSON.parse(
+    localStorage.getItem('taskflow_tasks') ?? '[]'
+  );
+
+  const trash = JSON.parse(
+    localStorage.getItem('taskflow_trash') ?? '[]'
+  );
+
+  this.store.dispatch(
+    loadTasks({
+      tasks,
+      trash
+    })
+  );
+
   this.apiTaskService
     .getTasks()
     .subscribe(tareas  => {
       this.tareasApi = tareas;
     });
+
 }
+
 
   nuevaTareaAPI() {
 
@@ -99,7 +125,7 @@ ngOnInit() {
 
     //this.taskService.eliminarTarea(id);
     this.store.dispatch(
-      deleteTask({ id })
+      moveToTrash({ id })
     );
   }
 
@@ -181,7 +207,10 @@ ngOnInit() {
 
   onRestaurarTarea(id: number| string) {
 
-    this.taskService.restaurarTarea(id);
+    //this.taskService.restaurarTarea(id);
+    this.store.dispatch(
+      restoreTask({ id })
+    );
 
   }
 

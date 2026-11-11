@@ -45,3 +45,15 @@ export const selectCompletedCount =
     selectCompletedTasks,
     tasks => tasks.length
   );
+
+export const selectTrash =
+  createSelector(
+    selectTaskState,
+    state => state.trash
+  );
+  
+export const selectTrashCount =
+  createSelector(
+    selectTrash,
+    trash => trash.length
+  );

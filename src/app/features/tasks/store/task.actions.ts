@@ -1,4 +1,13 @@
 import { createAction, props } from '@ngrx/store';
+import { Task } from '../../../core/models/task.interface'
+
+export const loadTasks = createAction(
+  '[Task] Load Tasks',
+  props<{
+    tasks: Task[],
+    trash: Task[]
+  }>()
+);
 
 export const addTask = createAction(
   '[Tasks] Add Task',
@@ -22,3 +31,14 @@ export const editTask = createAction(
     titulo: string;
   }>()
 );
+
+export const moveToTrash = createAction(
+  '[Tasks] Move To Trash',
+  props<{ id: number | string }>()
+);
+
+export const restoreTask = createAction(
+  '[Tasks] Restore Task',
+  props<{ id: number | string }>()
+);
+

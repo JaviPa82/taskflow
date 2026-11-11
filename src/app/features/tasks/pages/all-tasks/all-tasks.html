@@ -21,7 +21,7 @@
 
 <app-task-list
   [tareas]="tareasNgRx()"
-  [papelera]="taskService.papelera()"
+  [papelera]="trashNgRx()"
   (modificarClick)="onEditarTareaSeleccionada($event)"
   (restaurarClick) = " onRestaurarTarea($event) "
   (eliminarDefinitivoClick) = " onEliminarDefinitivamente($event)"
