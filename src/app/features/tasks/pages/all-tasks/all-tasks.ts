@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { TaskService } from '../../../../core/services/task.service';
 import { TaskList } from '../../components/task-list/task-list';
 import { ApiTaskService } from '../../../../core/services/api-task';
@@ -6,11 +6,10 @@ import { Task } from '../../../../core/models/task.interface'
 
 import { toSignal } from '@angular/core/rxjs-interop';
 
-import { selectTaskState } from '../../store/task.selectors';
 
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/task.state';
-import { addTask,editTask,deleteTask,moveToTrash,restoreTask,loadTasks } from '../../store/task.actions';
+import { addTask,editTask,deleteForeverTask,moveToTrash,restoreTask } from '../../store/task.actions';
 import { selectTasks,selectTrash } from '../../store/task.selectors';
 
 
@@ -47,21 +46,6 @@ trashNgRx = toSignal(
 );
 
 ngOnInit() {
-
-  const tasks = JSON.parse(
-    localStorage.getItem('taskflow_tasks') ?? '[]'
-  );
-
-  const trash = JSON.parse(
-    localStorage.getItem('taskflow_trash') ?? '[]'
-  );
-
-  this.store.dispatch(
-    loadTasks({
-      tasks,
-      trash
-    })
-  );
 
   this.apiTaskService
     .getTasks()
@@ -216,7 +200,7 @@ ngOnInit() {
 
   onEliminarDefinitivamente(id: number | string) {
 
-    this.taskService.eliminarDefinitivamente(id);
+    this.store.dispatch(deleteForeverTask({ id }));
 
   }
  

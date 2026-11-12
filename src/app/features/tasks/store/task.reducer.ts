@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
 import { initialState } from './task.state';
-import { addTask, deleteTask, toggleTask, editTask, moveToTrash, restoreTask, loadTasks} from './task.actions';
+import { addTask, deleteForeverTask, toggleTask, editTask, moveToTrash, restoreTask, loadTasks} from './task.actions';
 
 export const taskReducer = createReducer(
     initialState,
@@ -105,7 +105,17 @@ export const taskReducer = createReducer(
 
         };
 
-    })
+    }),
+    on(deleteForeverTask,
+        (state, { id }) => ({
+
+            ...state,
+
+            trash: state.trash.filter(
+            t => t.id !== id
+            )
+
+        }))
 
   
 );

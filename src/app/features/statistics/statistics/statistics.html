@@ -1,6 +1,16 @@
 <p>Estadísticas</p>
-<p>Pendientes: {{ taskService.pendientes() }}</p>
 
-<p>Completadas: {{ taskService.completadas() }}</p>
+<p>
+  Pendientes:
+  {{ pendingCount$ | async }}
+</p>
 
-<p>Papelera: {{ taskService.totalPapelera() }}</p>
+<p>
+  Completadas:
+  {{ completedCount$ | async }}
+</p>
+
+<p>
+  Papelera:
+  {{ trashCount$ | async }}
+</p>

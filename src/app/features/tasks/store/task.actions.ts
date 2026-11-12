@@ -14,7 +14,7 @@ export const addTask = createAction(
   props<{ title: string }>()
 );
 
-export const deleteTask = createAction(
+export const deleteForeverTask = createAction(
   '[Tasks] Delete Task',
   props<{ id: number | string }>()
 );

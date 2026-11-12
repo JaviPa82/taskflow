@@ -1,7 +1,7 @@
 <h2>Pendientes</h2>
 
 <app-task-list
-  [tareas]="tareasPendientes()"
+  [tareas]="(pendingTasks$ | async) ?? []"
   [papelera]="[]"
   (completadaClick)="onToggleCompletada($event)"
   (eliminarClick)="onEliminarTarea($event)"
@@ -11,6 +11,7 @@
 <button (click)="probarNgRx()">
   Probar NgRx
 </button>
+
 @for (task of (tasks$ | async); track task.id) {
   <li>{{ task.titulo }}</li>
 }
@@ -34,7 +35,9 @@
 <button (click)="togglePrimera()">
   Toggle primera tarea NgRx
 </button>
+
 <br><br>
+
 <button (click)="editarPrimera()">
   Editar primera tarea NgRx
 </button>

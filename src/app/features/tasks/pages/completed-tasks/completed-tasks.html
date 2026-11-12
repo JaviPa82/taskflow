@@ -1,7 +1,7 @@
 <h2>Completadas</h2>
 
 <app-task-list
-  [tareas]="tareasCompletadas()"
+  [tareas]="(tareasCompletadas | async) ?? []"
   [papelera]="[]"
   (completadaClick)="onToggleCompletada($event)"
   (eliminarClick)="onEliminarTarea($event)"
