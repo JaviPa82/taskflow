@@ -55,3 +55,24 @@ export const loadApiTasksFailure = createAction(
   '[API Tasks] Load Tasks Failure',
   props<{ error: string }>()
 );
+
+export const createApiTask = createAction(
+  '[API Tasks] Create Task',
+  props<{
+    titulo: string;
+  }>()
+);
+
+export const createApiTaskSuccess = createAction(
+  '[API Tasks] Create Task Success',
+  props<{
+    task: Task;
+  }>()
+);
+
+export const createApiTaskFailure = createAction(
+  '[API Tasks] Create Task Failure',
+  props<{
+    error: string;
+  }>()
+);

@@ -5,7 +5,7 @@ import { CommonModule,AsyncPipe } from '@angular/common';
 
 import { Store } from '@ngrx/store';
 
-import { loadApiTasks } from '../../tasks/store/task.actions';
+import { loadApiTasks,createApiTask } from '../../tasks/store/task.actions';
 
 import { selectApiTasks } from '../../tasks/store/task.selectors';
 
@@ -61,7 +61,7 @@ export class ApiTasks implements OnInit{
       });
   }
 
-  crearTarea(){
+  crearTarea() {
 
     const texto = this.nuevaTarea().trim();
 
@@ -69,19 +69,14 @@ export class ApiTasks implements OnInit{
       return;
     }
 
+    this.store.dispatch(
+      createApiTask({
+        titulo: texto
+      })
+    );
+
     this.nuevaTarea.set('');
 
-    this.apiTaskService
-      .crearTarea({
-        titulo: texto,
-        completada: false,
-        fechaCreacion: new Date().toISOString()
-      })
-      .subscribe(resultado => {
-
-        this.cargarTareas();
-
-      });
   }
 
   actualizarTexto(event: Event) {
