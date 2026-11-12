@@ -3,6 +3,7 @@ import { Task } from '../../../core/models/task.interface';
 export interface TaskState {
   tasks: Task[];
   trash: Task[];
+  apiTasks: Task[];
 }
 
 export interface AppState {
@@ -12,5 +13,6 @@ export interface AppState {
 
 export const initialState: TaskState = {
   tasks: [],
-  trash: []
+  trash: [],
+  apiTasks: []
 };

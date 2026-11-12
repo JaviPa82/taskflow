@@ -1,11 +1,19 @@
 import { Component, inject, OnInit, ChangeDetectorRef,signal} from '@angular/core';
 import { ApiTaskService } from '../../../core/services/api-task'
 import { Task } from '../../../core/models/task.interface'
-import { CommonModule } from '@angular/common';
+import { CommonModule,AsyncPipe } from '@angular/common';
+
+import { Store } from '@ngrx/store';
+
+import { loadApiTasks } from '../../tasks/store/task.actions';
+
+import { selectApiTasks } from '../../tasks/store/task.selectors';
+
+import { AppState } from '../../tasks/store/task.state';
 
 @Component({
   selector: 'app-api-tasks',
-  imports: [ CommonModule ],
+  imports: [ CommonModule, AsyncPipe ],
   templateUrl: './api-tasks.html',
   styleUrl: './api-tasks.scss',
   standalone: true
@@ -18,8 +26,12 @@ export class ApiTasks implements OnInit{
   tareaEditando: string | number = '';
   textoEdicion = signal('');
 
+  private store = inject(Store<AppState>);
+
+  apiTasks$ = this.store.select(selectApiTasks);
+
   ngOnInit() {
-    this.cargarTareas();
+    this.store.dispatch(loadApiTasks());
   }
 
   onToggleCompletada(task: Task) {

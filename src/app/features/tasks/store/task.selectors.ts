@@ -57,3 +57,9 @@ export const selectTrashCount =
     selectTrash,
     trash => trash.length
   );
+
+  export const selectApiTasks =
+  createSelector(
+    selectTaskState,
+    state => state.apiTasks
+  );

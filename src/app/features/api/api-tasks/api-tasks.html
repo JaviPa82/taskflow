@@ -7,7 +7,7 @@
 <button (click)="crearTarea()">Añadir</button>
 
 
-@for (task of tasks; track task.id) {
+@for (task of (apiTasks$ | async) ?? []; track task.id) {
   <div>
   @if (tareaEditando === task.id) {
  

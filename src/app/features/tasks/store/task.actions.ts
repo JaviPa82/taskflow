@@ -42,3 +42,16 @@ export const restoreTask = createAction(
   props<{ id: number | string }>()
 );
 
+export const loadApiTasks = createAction(
+  '[API Tasks] Load Tasks'
+);
+
+export const loadApiTasksSuccess = createAction(
+  '[API Tasks] Load Tasks Success',
+  props<{ tasks: Task[] }>()
+);
+
+export const loadApiTasksFailure = createAction(
+  '[API Tasks] Load Tasks Failure',
+  props<{ error: string }>()
+);

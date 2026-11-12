@@ -23,6 +23,12 @@
       "completada": true,
       "fechaCreacion": "2026-10-30T11:01:29.282Z",
       "id": "f1cYwl0T2ZM"
+    },
+    {
+      "titulo": "prueba",
+      "completada": false,
+      "fechaCreacion": "2026-11-12T11:42:10.525Z",
+      "id": "qAoQoPE9yoo"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
