@@ -2,26 +2,27 @@
 
 <p>
   Total tareas:
-  {{ total }}
+  {{ total$ | async }}
 </p>
 
 <p>
   ✅ Completadas:
-  {{ completadas }}
+  {{ completadas$ | async }}
 </p>
 
 <p>
   ⏳ Pendientes:
-  {{ pendientes }}
+  {{ pendientes$ | async }}
 </p>
 
 <p>
   📈 Porcentaje completado:
-  {{ porcentaje }}%
+  {{ porcentaje$ | async }}%
 </p>
+
 <div class="barra">
   <div
     class="progreso"
-    [style.width.%]="porcentaje">
+    [style.width.%]="porcentaje$ | async">
   </div>
 </div>

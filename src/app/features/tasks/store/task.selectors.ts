@@ -63,3 +63,55 @@ export const selectTrashCount =
     selectTaskState,
     state => state.apiTasks
   );
+
+  export const selectApiCompletedTasks =
+  createSelector(
+    selectApiTasks,
+    tasks =>
+      tasks.filter(
+        t => t.completada
+      )
+  );
+
+export const selectApiPendingTasks =
+  createSelector(
+    selectApiTasks,
+    tasks =>
+      tasks.filter(
+        t => !t.completada
+      )
+  );
+
+export const selectApiTotalCount =
+  createSelector(
+    selectApiTasks,
+    tasks => tasks.length
+  );
+
+export const selectApiCompletedCount =
+  createSelector(
+    selectApiCompletedTasks,
+    tasks => tasks.length
+  );
+
+export const selectApiPendingCount =
+  createSelector(
+    selectApiPendingTasks,
+    tasks => tasks.length
+  );
+  
+export const selectApiCompletionPercentage =
+  createSelector(
+
+    selectApiTotalCount,
+    selectApiCompletedCount,
+
+    (total, completadas) =>
+
+      total === 0
+        ? 0
+        : Math.round(
+            completadas * 100 / total
+          )
+
+  );

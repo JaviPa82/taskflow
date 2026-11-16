@@ -1,5 +1,5 @@
-import { Component, inject, OnInit, ChangeDetectorRef,signal} from '@angular/core';
-import { ApiTaskService } from '../../../core/services/api-task'
+import { Component, inject, OnInit,signal} from '@angular/core';
+
 import { Task } from '../../../core/models/task.interface'
 import { CommonModule,AsyncPipe } from '@angular/common';
 
@@ -19,11 +19,12 @@ import { AppState } from '../../tasks/store/task.state';
   standalone: true
 })
 export class ApiTasks implements OnInit{
-  cdr = inject(ChangeDetectorRef);
-  apiTaskService = inject(ApiTaskService);
+ 
+
   nuevaTarea = signal('');
-  tasks: Task[] = [];
+  
   tareaEditando: string | number = '';
+  
   textoEdicion = signal('');
 
   private store = inject(Store<AppState>);
@@ -115,25 +116,6 @@ export class ApiTasks implements OnInit{
     this.textoEdicion.set('');
 
   }
-  cargarTareas() {
-
-    this.apiTaskService
-      .getTasks()
-      .subscribe(tasks => {
-
-        tasks.sort(
-          (a, b) =>
-            b.fechaCreacion.localeCompare(
-              a.fechaCreacion
-            )
-        );
-
-        this.tasks = [...tasks];
-
-        this.cdr.detectChanges();
-
-      });
-
-  }
+  
 }
 

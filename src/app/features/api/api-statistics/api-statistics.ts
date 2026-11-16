@@ -1,55 +1,46 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { ApiTaskService } from '../../../core/services/api-task';
-import { ChangeDetectorRef } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
 
+import { Store } from '@ngrx/store';
+
+import {
+  selectApiTotalCount,
+  selectApiCompletedCount,
+  selectApiPendingCount,
+  selectApiCompletionPercentage
+} from '../../tasks/store/task.selectors';
+
+import { AppState }
+from '../../tasks/store/task.state';
 
 @Component({
   selector: 'app-api-statistics',
   standalone: true,
+  imports: [AsyncPipe],
   templateUrl: './api-statistics.html'
 })
-export class ApiStatistics implements OnInit {
+export class ApiStatistics {
 
-  apiTaskService = inject(ApiTaskService);
+  private store = inject(Store<AppState>);
 
-  total = 0;
-  completadas = 0;
-  pendientes = 0;
-  porcentaje = 0;
-  cdr = inject(ChangeDetectorRef);
+  total$ =
+    this.store.select(
+      selectApiTotalCount
+    );
 
-  ngOnInit() {
-    this.cargarEstadisticas();
-  }
+  completadas$ =
+    this.store.select(
+      selectApiCompletedCount
+    );
 
-  cargarEstadisticas() {
+  pendientes$ =
+    this.store.select(
+      selectApiPendingCount
+    );
 
-  this.apiTaskService
-    .getTasks()
-    .subscribe(tasks => {
-      console.log('TASKS API STATS', tasks);
-      this.total = tasks.length;
+  porcentaje$ =
+    this.store.select(
+      selectApiCompletionPercentage
+    );
 
-      this.completadas =
-        tasks.filter(
-          t => t.completada
-        ).length;
-
-      this.pendientes =
-        tasks.filter(
-          t => !t.completada
-        ).length;
-
-      this.porcentaje =
-        this.total === 0
-          ? 0
-          : Math.round(
-              this.completadas
-              * 100
-              / this.total
-            );
-        this.cdr.detectChanges();       
-    });
-
-  }
 }

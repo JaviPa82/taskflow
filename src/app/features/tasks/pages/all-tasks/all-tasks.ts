@@ -1,15 +1,14 @@
 import { Component, inject, signal } from '@angular/core';
-import { TaskService } from '../../../../core/services/task.service';
+
 import { TaskList } from '../../components/task-list/task-list';
-import { ApiTaskService } from '../../../../core/services/api-task';
-import { Task } from '../../../../core/models/task.interface'
+
 
 import { toSignal } from '@angular/core/rxjs-interop';
 
 
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/task.state';
-import { addTask,editTask,deleteForeverTask,moveToTrash,restoreTask } from '../../store/task.actions';
+import { addTask,editTask,deleteForeverTask,moveToTrash,restoreTask,toggleTask } from '../../store/task.actions';
 import { selectTasks,selectTrash } from '../../store/task.selectors';
 
 
@@ -23,12 +22,9 @@ export class AllTasks {
 
 private store = inject(Store<AppState>);
 
-tareasApi: Task[] = [];
-taskService = inject(TaskService);
 nuevaTarea = signal('');
 tareaSeleccionada = signal<number | string | null>(null);
 
-apiTaskService = inject(ApiTaskService);
 
 tareasNgRx = toSignal(
   this.store.select(selectTasks),
@@ -45,65 +41,6 @@ trashNgRx = toSignal(
   }
 );
 
-ngOnInit() {
-
-  this.apiTaskService
-    .getTasks()
-    .subscribe(tareas  => {
-      this.tareasApi = tareas;
-    });
-
-}
-
-
-  nuevaTareaAPI() {
-
-    /*const tarea = {
-      titulo: 'Aprender POST',
-      completada: false,
-      fechaCreacion: new Date().toISOString()
-    };*/
-    const texto = this.nuevaTarea().trim();
-
-    if (!texto) {
-      return;
-    }
-
-    this.taskService.agregarTarea(texto);
-    
-    this.nuevaTarea.set('');
-
-    this.apiTaskService
-      .crearTarea({
-        titulo: texto,
-        completada: false,
-        fechaCreacion: new Date().toISOString()
-      })
-      .subscribe(resultado => {
-
-        console.log('Creada:', resultado);
-
-      });
-  }
-
-  /*actualizarTareaAPI() {
-
-  const tareaActualizada = {
-    id: 1,
-    titulo: 'Aprender PUT',
-    completada: true,
-    fechaCreacion: '2026-10-29T10:00:00.000Z'
-  };
-
-  this.apiTaskService
-    .actualizarTarea(tareaActualizada)
-    .subscribe(resultado => {
-
-      console.log('Actualizada:', resultado);
-
-    });
-
-  }*/
 
   onEliminarTarea(id: number | string) {
 
@@ -111,27 +48,6 @@ ngOnInit() {
     this.store.dispatch(
       moveToTrash({ id })
     );
-  }
-
-  onToggleCompletada(id: number | string) {
-
-    //this.taskService.toggleCompletada(id);
-
-    const tarea =
-    this.tareasApi.find(t => t.id === id)
-    
-    if (!tarea) {
-      return;
-    }
-
-    this.apiTaskService
-    .actualizarTarea(tarea)
-    .subscribe(resultado => {
-
-      console.log('Actualizada:', resultado);
-
-    });
-
   }
 
   actualizarTexto(event: Event) {
@@ -147,7 +63,6 @@ ngOnInit() {
       return;
     }
 
-    //this.taskService.agregarTarea(texto);
     this.store.dispatch(
       addTask({
         title: texto
@@ -203,5 +118,12 @@ ngOnInit() {
     this.store.dispatch(deleteForeverTask({ id }));
 
   }
- 
+  
+  onToggleCompletada(id: number | string) {
+
+  this.store.dispatch(
+    toggleTask({ id })
+  );
+
+}
 }
