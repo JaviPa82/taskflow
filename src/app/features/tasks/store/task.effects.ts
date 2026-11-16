@@ -4,7 +4,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import { tap,switchMap, map, catchError, of } from 'rxjs';
 
-import { addTask, editTask, moveToTrash, restoreTask, toggleTask, loadApiTasks, loadApiTasksSuccess, loadApiTasksFailure, createApiTask, createApiTaskSuccess, createApiTaskFailure } from './task.actions';
+import { addTask, editTask, moveToTrash, restoreTask, toggleTask, loadApiTasks, loadApiTasksSuccess, loadApiTasksFailure, createApiTask, createApiTaskSuccess, createApiTaskFailure, deleteApiTask, deleteApiTaskFailure, deleteApiTaskSuccess } from './task.actions';
 
 import { Store } from '@ngrx/store';
 
@@ -121,6 +121,37 @@ export class TaskEffects {
         )
 
     )
-    );
+  );
 
+  deleteApiTask$ = createEffect(() =>
+    this.actions$.pipe(
+
+        ofType(deleteApiTask),
+
+        switchMap(({ id }) =>
+
+        this.apiTaskService
+            .eliminarTarea(id)
+            .pipe(
+
+            map(() =>
+                deleteApiTaskSuccess({
+                id
+                })
+            ),
+
+            catchError(error =>
+                of(
+                deleteApiTaskFailure({
+                    error: error.message
+                })
+                )
+            )
+
+            )
+
+        )
+
+    )
+  );
 }

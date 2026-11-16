@@ -5,7 +5,7 @@ import { CommonModule,AsyncPipe } from '@angular/common';
 
 import { Store } from '@ngrx/store';
 
-import { loadApiTasks,createApiTask } from '../../tasks/store/task.actions';
+import { loadApiTasks,createApiTask,deleteApiTask} from '../../tasks/store/task.actions';
 
 import { selectApiTasks } from '../../tasks/store/task.selectors';
 
@@ -52,13 +52,10 @@ export class ApiTasks implements OnInit{
 
   onDelete(id: number | string) {
 
-    this.apiTaskService
-      .eliminarTarea(id)
-      .subscribe(() => {
+    this.store.dispatch(
+      deleteApiTask({ id })
+    );
 
-      this.cargarTareas();
-
-      });
   }
 
   crearTarea() {
