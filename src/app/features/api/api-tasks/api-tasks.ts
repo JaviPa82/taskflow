@@ -5,7 +5,7 @@ import { CommonModule,AsyncPipe } from '@angular/common';
 
 import { Store } from '@ngrx/store';
 
-import { loadApiTasks,createApiTask,deleteApiTask} from '../../tasks/store/task.actions';
+import { loadApiTasks,createApiTask,deleteApiTask,updateApiTask} from '../../tasks/store/task.actions';
 
 import { selectApiTasks } from '../../tasks/store/task.selectors';
 
@@ -42,12 +42,11 @@ export class ApiTasks implements OnInit{
     };
 
     
-    this.apiTaskService
-      .actualizarTarea(actualizada)
-      .subscribe((resultado) => {
-        this.cargarTareas();
-
-    });
+    this.store.dispatch(
+      updateApiTask({
+        task: actualizada
+      })
+    );
   }
 
   onDelete(id: number | string) {
@@ -93,20 +92,20 @@ export class ApiTasks implements OnInit{
 
   guardarEdicion(task: Task) {
 
-  const actualizada = {
-    ...task,
-    titulo: this.textoEdicion().trim()
-  };
+    const actualizada = {
+      ...task,
+      titulo: this.textoEdicion().trim()
+    };
 
-  this.apiTaskService
-    .actualizarTarea(actualizada)
-    .subscribe(() => {
+    this.store.dispatch(
+      updateApiTask({
+        task: actualizada
+      })
+    );
 
-      this.tareaEditando = '';
+    this.tareaEditando = '';
 
-      this.cargarTareas();
-
-    });
+    this.textoEdicion.set('');
 
   }
   cancelarEdicion() {

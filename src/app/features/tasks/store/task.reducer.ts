@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
 import { initialState } from './task.state';
-import { addTask, deleteForeverTask, toggleTask, editTask, moveToTrash, restoreTask, loadTasks, loadApiTasksSuccess, createApiTaskSuccess, deleteApiTaskSuccess} from './task.actions';
+import { addTask, deleteForeverTask, toggleTask, editTask, moveToTrash, restoreTask, loadTasks, loadApiTasksSuccess, createApiTaskSuccess, deleteApiTaskSuccess, updateApiTaskSuccess} from './task.actions';
 
 export const taskReducer = createReducer(
     initialState,
@@ -143,6 +143,19 @@ export const taskReducer = createReducer(
 
             apiTasks: state.apiTasks.filter(
             task => task.id !== id
+            )
+
+        })),
+
+    on(updateApiTaskSuccess,
+        (state, { task }) => ({
+
+            ...state,
+
+            apiTasks: state.apiTasks.map(
+            t => t.id === task.id
+                ? task
+                : t
             )
 
         }))

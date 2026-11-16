@@ -97,3 +97,24 @@ export const deleteApiTaskFailure = createAction(
     error: string;
   }>()
 );
+
+export const updateApiTask = createAction(
+  '[API Tasks] Update Task',
+  props<{
+    task: Task;
+  }>()
+);
+
+export const updateApiTaskSuccess = createAction(
+  '[API Tasks] Update Task Success',
+  props<{
+    task: Task;
+  }>()
+);
+
+export const updateApiTaskFailure = createAction(
+  '[API Tasks] Update Task Failure',
+  props<{
+    error: string;
+  }>()
+);
