@@ -20,7 +20,7 @@ import {
   selectTotalCount,
   selectPendingCount,
   selectCompletedCount
-} from '../../store/task.selectors';
+} from '../../store/selectors/task.selectors';
 
 import { AppState } from '../../store/task.state';
 

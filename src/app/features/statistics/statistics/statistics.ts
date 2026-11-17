@@ -3,7 +3,7 @@ import { AsyncPipe } from '@angular/common';
 
 import { Store } from '@ngrx/store';
 
-import { selectPendingCount, selectCompletedCount, selectTrashCount } from '../../tasks/store/task.selectors';
+import { selectPendingCount, selectCompletedCount, selectTrashCount } from '../../tasks/store/selectors/task.selectors';
 
 import { AppState } from '../../tasks/store/task.state';
 

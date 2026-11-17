@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 
 import { toggleTask, moveToTrash } from '../../store/task.actions';
 
-import { selectCompletedTasks } from '../../store/task.selectors';
+import { selectCompletedTasks } from '../../store/selectors/task.selectors';
 
 import { AppState } from '../../store/task.state';
 import { AsyncPipe } from '@angular/common';

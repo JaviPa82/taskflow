@@ -9,7 +9,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/task.state';
 import { addTask,editTask,deleteForeverTask,moveToTrash,restoreTask,toggleTask } from '../../store/task.actions';
-import { selectTasks,selectTrash } from '../../store/task.selectors';
+import { selectTasks,selectTrash } from '../../store/selectors/task.selectors';
 
 
 @Component({

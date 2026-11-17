@@ -8,7 +8,7 @@ import { addTask, editTask, moveToTrash, restoreTask, toggleTask, loadApiTasks, 
 
 import { Store } from '@ngrx/store';
 
-import { selectTaskState } from './task.selectors';
+import { selectTaskState } from './selectors/task.selectors';
 import { take } from 'rxjs';
 
 import { ApiTaskService } from '../../../core/services/api-task';

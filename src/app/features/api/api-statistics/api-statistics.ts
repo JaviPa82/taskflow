@@ -8,7 +8,7 @@ import {
   selectApiCompletedCount,
   selectApiPendingCount,
   selectApiCompletionPercentage
-} from '../../tasks/store/task.selectors';
+} from '../../tasks/store/selectors/task.selectors';
 
 import { AppState }
 from '../../tasks/store/task.state';

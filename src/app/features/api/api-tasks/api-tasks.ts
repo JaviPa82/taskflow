@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 
 import { loadApiTasks,createApiTask,deleteApiTask,updateApiTask} from '../../tasks/store/task.actions';
 
-import { selectApiTasks } from '../../tasks/store/task.selectors';
+import { selectApiTasks } from '../../tasks/store/selectors/task.selectors';
 
 import { AppState } from '../../tasks/store/task.state';
 
