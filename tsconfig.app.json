@@ -8,7 +8,7 @@
   },
   "include": [
     "src/**/*.ts"
-  ],
+, "src/app/core/services/api-task.spec.bk"  ],
   "exclude": [
     "src/**/*.spec.ts"
   ]
