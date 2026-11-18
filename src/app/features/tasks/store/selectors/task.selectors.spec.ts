@@ -127,7 +127,7 @@ describe('TaskSelectors', () => {
 
   });
 
-    it('debería devolver el porcentaje de tareas completadas del API', () => {
+  it('debería devolver el porcentaje de tareas completadas del API', () => {
 
     const state = {
 
