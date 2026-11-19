@@ -4,14 +4,14 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import { tap,switchMap, map, catchError, of } from 'rxjs';
 
-import { addTask, editTask, moveToTrash, restoreTask, toggleTask, loadApiTasks, loadApiTasksSuccess, loadApiTasksFailure, createApiTask, createApiTaskSuccess, createApiTaskFailure, deleteApiTask, deleteApiTaskFailure, deleteApiTaskSuccess,updateApiTask, updateApiTaskSuccess, updateApiTaskFailure } from './task.actions';
+import { addTask, editTask, moveToTrash, restoreTask, toggleTask, loadApiTasks, loadApiTasksSuccess, loadApiTasksFailure, createApiTask, createApiTaskSuccess, createApiTaskFailure, deleteApiTask, deleteApiTaskFailure, deleteApiTaskSuccess,updateApiTask, updateApiTaskSuccess, updateApiTaskFailure } from '../task.actions';
 
 import { Store } from '@ngrx/store';
 
-import { selectTaskState } from './selectors/task.selectors';
+import { selectTaskState } from '../selectors/task.selectors';
 import { take } from 'rxjs';
 
-import { ApiTaskService } from '../../../core/services/api-task';
+import { ApiTaskService } from '../../../../core/services/api-task';
 
 @Injectable()
 export class TaskEffects {

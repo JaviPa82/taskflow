@@ -9,7 +9,7 @@ import { provideEffects } from '@ngrx/effects';
 import { routes } from './app.routes';
 
 import { taskReducer } from './features/tasks/store/reducers/task.reducer';
-import { TaskEffects } from './features/tasks/store/task.effects';
+import { TaskEffects } from './features/tasks/store/effects/task.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
