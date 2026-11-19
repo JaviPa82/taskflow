@@ -4,7 +4,8 @@ import { PendingTasks } from './pending-tasks';
 
 import { provideStore,Store  } from '@ngrx/store';
 import { taskReducer } from '../../store/reducers/task.reducer';
-import { addTask,toggleTask,moveToTrash } from '../../store/task.actions';
+import { addTask,toggleTask,moveToTrash, editTask, deleteForeverTask} from '../../store/task.actions';
+
 
 
 describe('PendingTasks', () => {
@@ -99,6 +100,108 @@ describe('PendingTasks', () => {
 
     expect(dispatchSpy)
       .not.toHaveBeenCalled();
+
+  });
+
+  it('debería editar la primera tarea', () => {
+
+    const store = TestBed.inject(Store);
+
+    store.dispatch(
+      addTask({
+        title: 'Angular'
+      })
+    );
+
+    const dispatchSpy =
+      vi.spyOn(store, 'dispatch');
+
+    component.editarPrimera();
+
+    expect(dispatchSpy)
+      .toHaveBeenCalledWith(
+        editTask({
+          id: expect.any(Number),
+          titulo: 'Editada con NgRx'
+        })
+      );
+
+  });
+
+  it('no debería cambiar el estado si no hay tareas', () => {
+
+    const store = TestBed.inject(Store);
+
+    const dispatchSpy =
+      vi.spyOn(store, 'dispatch');
+
+    component.togglePrimera();
+
+    expect(dispatchSpy)
+      .not.toHaveBeenCalled();
+
+  });
+
+  it('debería cambiar el estado de la tarea', () => {
+
+    const store = TestBed.inject(Store);
+
+    store.dispatch(
+      addTask({
+        title: 'Angular'
+      })
+    );
+
+    const dispatchSpy =
+      vi.spyOn(store, 'dispatch');
+
+    component.togglePrimera();
+
+    expect(dispatchSpy)
+      .toHaveBeenCalledWith(
+        toggleTask({
+          id: expect.any(Number)
+        })
+      );
+
+  });
+
+
+  it('no debería eliminar si no existen tareas', () => {
+
+    const store = TestBed.inject(Store);
+
+    const dispatchSpy =
+      vi.spyOn(store, 'dispatch');
+
+    component.borrarPrimera();
+
+    expect(dispatchSpy)
+      .not.toHaveBeenCalled();
+
+  });
+
+  it('debería eliminar una tarea', () => {
+
+    const store = TestBed.inject(Store);
+
+    store.dispatch(
+      addTask({
+        title: 'Angular'
+      })
+    );
+
+    const dispatchSpy =
+      vi.spyOn(store, 'dispatch');
+
+    component.borrarPrimera();
+
+    expect(dispatchSpy)
+      .toHaveBeenCalledWith(
+        deleteForeverTask({
+          id: expect.any(Number)
+        })
+      );
 
   });
 
