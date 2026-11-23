@@ -2,8 +2,10 @@ import { taskReducer } from './task.reducer';
 import { initialState } from '../task.state';
 import { restoreTask,deleteForeverTask, moveToTrash, addTask, toggleTask,editTask} from '../task.actions';
 
-describe('TasksReducer', () => {
+import { crearTarea } from '../../../../testing/factories/task.factory'
 
+describe('TasksReducer', () => {
+  const tarea = crearTarea();
   it('debería crearse', () => {
     expect(taskReducer).toBeTruthy();
   });
@@ -28,12 +30,7 @@ describe('TasksReducer', () => {
       ...initialState,
 
       tasks: [
-        {
-          id: 1,
-          titulo: 'Angular',
-          completada: false,
-          fechaCreacion: '2026-01-01'
-        }
+        tarea
       ]
     };
 
@@ -62,12 +59,7 @@ describe('TasksReducer', () => {
       ...initialState,
 
       trash: [
-        {
-          id: 1,
-          titulo: 'Angular',
-          completada: false,
-          fechaCreacion: '2026-01-01'
-        }
+        tarea
       ]
 
     };
@@ -96,12 +88,7 @@ describe('TasksReducer', () => {
       ...initialState,
 
       trash: [
-        {
-          id: 1,
-          titulo: 'Angular',
-          completada: false,
-          fechaCreacion: '2026-01-01'
-        }
+        tarea
       ]
 
     };
@@ -123,12 +110,7 @@ describe('TasksReducer', () => {
       ...initialState,
 
       tasks: [
-        {
-          id: 1,
-          titulo: 'Angular',
-          completada: false,
-          fechaCreacion: '2026-01-01'
-        }
+        tarea
       ]
 
     };
@@ -153,12 +135,7 @@ describe('TasksReducer', () => {
       ...initialState,
 
       tasks: [
-        {
-          id: 1,
-          titulo: 'Angular',
-          completada: false,
-          fechaCreacion: '2026-01-01'
-        }
+        tarea
       ]
 
     };

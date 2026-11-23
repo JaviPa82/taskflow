@@ -1,32 +1,36 @@
 import { selectPendingCount,selectCompletedCount, selectTrashCount,selectApiCompletionPercentage } from './task.selectors';
 
+import { crearTarea } from '../../../../testing/factories/task.factory'
+
+
 describe('TaskSelectors', () => {
+    const tarea = crearTarea();
+    const tarea1 = crearTarea({
+      id:2,
+      titulo: 'NgRx', 
+      completada: true
+    });
+    const tarea2 = crearTarea({
+      id:3,
+      titulo: 'Testing',
+      completada: false
+    });
+    const tarea3 = crearTarea({
+      id:4,
+      titulo: 'Kracoa',
+      completada: false
+    });
 
   it('debería contar tareas pendientes', () => {
-
+    
     const state = {
 
       tasks: {
 
         tasks: [
-          {
-            id: 1,
-            titulo: 'Angular',
-            completada: false,
-            fechaCreacion: '2026-01-01'
-          },
-          {
-            id: 2,
-            titulo: 'NgRx',
-            completada: true,
-            fechaCreacion: '2026-01-01'
-          },
-          {
-            id: 3,
-            titulo: 'Testing',
-            completada: false,
-            fechaCreacion: '2026-01-01'
-          }
+          tarea,
+          tarea1,
+          tarea2
         ],
 
         trash: [],
@@ -51,24 +55,9 @@ describe('TaskSelectors', () => {
       tasks: {
 
         tasks: [
-          {
-            id: 1,
-            titulo: 'Angular',
-            completada: false,
-            fechaCreacion: '2026-01-01'
-          },
-          {
-            id: 2,
-            titulo: 'NgRx',
-            completada: true,
-            fechaCreacion: '2026-01-01'
-          },
-          {
-            id: 3,
-            titulo: 'Testing',
-            completada: false,
-            fechaCreacion: '2026-01-01'
-          }
+          tarea,
+          tarea1,
+          tarea2
         ],
 
         trash: [],
@@ -94,24 +83,9 @@ describe('TaskSelectors', () => {
 
         tasks: [],
         trash: [
-            {
-            id: 1,
-            titulo: 'Angular',
-            completada: false,
-            fechaCreacion: '2026-01-01'
-          },
-          {
-            id: 2,
-            titulo: 'NgRx',
-            completada: true,
-            fechaCreacion: '2026-01-01'
-          },
-          {
-            id: 3,
-            titulo: 'Testing',
-            completada: false,
-            fechaCreacion: '2026-01-01'
-          }
+            tarea,
+            tarea1,
+            tarea2
         ],
         apiTasks: []
 
@@ -135,30 +109,7 @@ describe('TaskSelectors', () => {
 
         tasks: [],
         trash: [],
-        apiTasks: [{
-            id: 1,
-            titulo: 'Angular',
-            completada: false,
-            fechaCreacion: '2026-01-01'
-          },
-          {
-            id: 2,
-            titulo: 'NgRx',
-            completada: true,
-            fechaCreacion: '2026-01-01'
-          },
-          {
-            id: 3,
-            titulo: 'Testing',
-            completada: false,
-            fechaCreacion: '2026-01-01'
-          },
-          {
-            id: 4,
-            titulo: 'Prueba',
-            completada: false,
-            fechaCreacion: '2026-01-01'
-          }]
+        apiTasks: [tarea,tarea1,tarea2,tarea3]
 
       }
 

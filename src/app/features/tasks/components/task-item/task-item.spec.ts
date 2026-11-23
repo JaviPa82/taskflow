@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TaskItem } from './task-item';
 
+import { crearTarea } from '../../../../testing/factories/task.factory'
+
 describe('TaskItem', () => {
   let component: TaskItem;
   let fixture: ComponentFixture<TaskItem>;
@@ -16,14 +18,11 @@ describe('TaskItem', () => {
 
   component = fixture.componentInstance;
 
+  const tarea = crearTarea();
+
   fixture.componentRef.setInput(
     'tarea',
-    {
-      id: 1,
-      titulo: 'Angular',
-      completada: false,
-      fechaCreacion: '2026-01-01'
-    }
+    tarea
   );
 
   fixture.detectChanges();
