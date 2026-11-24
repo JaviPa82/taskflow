@@ -2,9 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 
 import { initialState } from '../task.state';
 import { addTask, deleteForeverTask, toggleTask, editTask, moveToTrash, restoreTask, loadTasks, loadApiTasksSuccess, createApiTaskSuccess, deleteApiTaskSuccess, updateApiTaskSuccess} from '../task.actions';
-import { crearTarea } from '../../../../testing/factories/task.factory'
 
-const tarea = crearTarea();
 export const taskReducer = createReducer(
     
     initialState,
@@ -19,9 +17,13 @@ export const taskReducer = createReducer(
         ...state,
 
         tasks: [
-        ...state.tasks,
-
-       tarea
+            ...state.tasks,
+            {
+                id: Date.now(),
+                titulo: title,
+                completada: false,
+                fechaCreacion: new Date().toISOString()
+            }
         ]
     })),
     on(moveToTrash, (state, { id }) => {
