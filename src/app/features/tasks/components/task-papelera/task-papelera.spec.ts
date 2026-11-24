@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TaskPapelera } from './task-papelera';
 
+import { crearTarea } from '../../../../testing/factories/task.factory'
+
 describe('TaskPapelera', () => {
   let component: TaskPapelera;
   let fixture: ComponentFixture<TaskPapelera>;
@@ -13,7 +15,12 @@ describe('TaskPapelera', () => {
 
     fixture = TestBed.createComponent(TaskPapelera);
     component = fixture.componentInstance;
-    await fixture.whenStable();
+
+    fixture.componentRef.setInput('tarea', crearTarea());
+
+fixture.detectChanges();
+
+await fixture.whenStable();
   });
 
   it('should create', () => {
