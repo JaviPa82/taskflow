@@ -1,6 +1,6 @@
 import { Component,inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, map } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, switchMap, of } from 'rxjs';
 
 
 @Component({
@@ -32,20 +32,33 @@ export class ReactiveFormDemo {
   });
   constructor() {
 
-    this.taskForm.valueChanges
-      .pipe(
-        map(value => value.titulo),
-        debounceTime(1000),
-        distinctUntilChanged()
-      )
-      .subscribe(value => {
+    this.taskForm.valueChanges.pipe(
+
+      map(value => value.titulo ?? ''),
+
+      debounceTime(1000),
+
+      distinctUntilChanged(),
+
+      switchMap(texto => {
 
         console.log(
-          'Búsqueda:',
-          value
+          'Consultando:',
+          texto
         );
 
-      });
+        return of({
+          texto,
+          longitud: texto.length
+        });
+
+      })
+
+    ).subscribe(resultado => {
+
+      console.log(resultado);
+
+    });
 
   }
 
