@@ -3,7 +3,8 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, map, switchMap, of } from 'rxjs';
 
 import { ApiTaskService } from '../../../../core/services/api-task';
-import { Task } from '../../../../core/models/task.interface'
+import { Task } from '../../../../core/models/task.interface';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
 
 
 @Component({
@@ -30,7 +31,8 @@ export class ReactiveFormDemo {
       [
         Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(50)
+        Validators.maxLength(50),
+        tituloProhibidoValidator
       ]
 
     ]
@@ -45,6 +47,7 @@ export class ReactiveFormDemo {
       'TypeScript',
       'JavaScript'
     ];
+  
     
     this.taskForm.valueChanges.pipe(
 
@@ -95,4 +98,26 @@ export class ReactiveFormDemo {
     );
 
   }
+
+  
+}
+export function tituloProhibidoValidator( control: AbstractControl ): ValidationErrors | null {
+
+  const prohibidos = [
+    'admin',
+    'test',
+    '123'
+  ];
+
+  const texto = control.value?.toLowerCase();
+
+  if ( prohibidos.includes(texto) ) {
+
+    return {
+      tituloProhibido: true
+    };
+
+  }
+
+  return null;
 }

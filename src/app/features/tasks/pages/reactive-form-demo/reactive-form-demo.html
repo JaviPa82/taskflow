@@ -43,17 +43,26 @@
 
   <ul>
 
-  @for (
-    tarea of resultados;
-    track tarea.id
-  ) {
+    @for (
+      tarea of resultados;
+      track tarea.id
+    ) {
 
-    <li>
-      {{ tarea.titulo }}
-    </li>
+      <li>
+        {{ tarea.titulo }}
+      </li>
+
+    }
+
+  </ul>
+
+
+  @if ( taskForm.get('titulo') ?.errors?.['tituloProhibido']) {
+
+    <p>
+      Ese título no está permitido
+    </p>
 
   }
-
-</ul>
-
+  
 </form>
