@@ -41,6 +41,8 @@
 
   </button>
 
+
+  
   <ul>
 
     @for (
@@ -64,5 +66,30 @@
     </p>
 
   }
-  
-</form>
+
+ 
+
+
+
+<form
+  [formGroup]="registroForm"
+  (ngSubmit)="onSubmit()">
+
+  <input
+    type="text"
+    formControlName="password"
+    placeholder="password">
+  <input
+      type="text"
+      formControlName="confirmPassword"
+      placeholder="confirmPassword">
+
+
+  @if ( registroForm.errors?.['passwordsDistintas'] ) {
+
+      <p>
+        Las contraseñas no coinciden
+      </p>
+
+    }
+  </form>

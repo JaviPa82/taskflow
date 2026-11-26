@@ -38,16 +38,26 @@ export class ReactiveFormDemo {
     ]
 
   });
+
+  registroForm = this.fb.group(
+  {
+    password: [
+      '',
+      Validators.required
+    ],
+
+    confirmPassword: [
+      '',
+      Validators.required
+    ]
+  },
+
+  {
+    validators:
+      passwordsCoincidenValidator
+  }
+);
   constructor() {
-    const tareas = [
-      'Angular',
-      'RxJS',
-      'NgRx',
-      'Signals',
-      'TypeScript',
-      'JavaScript'
-    ];
-  
     
     this.taskForm.valueChanges.pipe(
 
@@ -115,6 +125,29 @@ export function tituloProhibidoValidator( control: AbstractControl ): Validation
 
     return {
       tituloProhibido: true
+    };
+
+  }
+
+  return null;
+}
+
+export function passwordsCoincidenValidator( control: AbstractControl ): ValidationErrors | null {
+
+  const password =
+    control.get('password')
+      ?.value;
+
+  const confirmPassword =
+    control.get('confirmPassword')
+      ?.value;
+
+  if (
+    password !== confirmPassword
+  ) {
+
+    return {
+      passwordsDistintas: true
     };
 
   }
