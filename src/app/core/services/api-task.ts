@@ -11,7 +11,7 @@ export class ApiTaskService {
 
   getTasks() {
     return this.http.get<Task[]>(
-      'http://localhost:3000/taskssss'
+      'http://localhost:3000/tasks'
     );
   }
   crearTarea(task: NuevaTask) {

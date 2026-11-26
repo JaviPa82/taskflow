@@ -2,6 +2,9 @@ import { Component,inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, map, switchMap, of } from 'rxjs';
 
+import { ApiTaskService } from '../../../../core/services/api-task';
+import { Task } from '../../../../core/models/task.interface'
+
 
 @Component({
   selector: 'app-reactive-form-demo',
@@ -15,6 +18,8 @@ import { debounceTime, distinctUntilChanged, map, switchMap, of } from 'rxjs';
 
 export class ReactiveFormDemo {
   private fb = inject(FormBuilder);
+  private apiTaskService = inject(ApiTaskService);
+  resultados: Task[] = [];
   
   taskForm = this.fb.group({
 
@@ -40,6 +45,7 @@ export class ReactiveFormDemo {
       'TypeScript',
       'JavaScript'
     ];
+    
     this.taskForm.valueChanges.pipe(
 
       map(value => value.titulo ?? ''),
@@ -48,34 +54,33 @@ export class ReactiveFormDemo {
 
       distinctUntilChanged(),
 
-      switchMap(texto => {
+      switchMap(texto =>
 
-      console.log(
-        'Consultando:',
-        texto
-      );
+      this.apiTaskService
+          .getTasks()
+          .pipe(
 
-      return of(
+            map(tasks =>
 
-        tareas.filter(t =>
-          t.toLowerCase()
-          .includes(
-              texto.toLowerCase()
+              tasks.filter(task =>
+                task.titulo
+                    .toLowerCase()
+                    .includes(
+                        texto.toLowerCase()
+                    )
+              )
+
+            )
+
           )
-        )
 
-      );
+      )
 
-    })
+    ).subscribe(tasks => {
+        
+        this.resultados = tasks;
 
-    ).subscribe(resultado => {
-
-      console.log(
-        'Resultados:',
-        resultado
-      );
-
-    });
+      });
 
   }
 

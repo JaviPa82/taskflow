@@ -41,4 +41,19 @@
 
   </button>
 
+  <ul>
+
+  @for (
+    tarea of resultados;
+    track tarea.id
+  ) {
+
+    <li>
+      {{ tarea.titulo }}
+    </li>
+
+  }
+
+</ul>
+
 </form>
