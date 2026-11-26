@@ -1,0 +1,44 @@
+<h2>
+  Reactive Forms Demo
+</h2>
+
+<form
+  [formGroup]="taskForm"
+  (ngSubmit)="onSubmit()">
+
+  <input
+    type="text"
+    formControlName="titulo"
+    placeholder="Título">
+
+    @if ( taskForm.get('titulo')?.touched && taskForm.get('titulo')?.invalid ) {
+
+        @if ( taskForm.get('titulo')?.errors?.['required'] ) {
+
+            <p>El título es obligatorio</p>
+
+        }
+
+        @if ( taskForm.get('titulo')?.errors?.['minlength'] ) {
+
+            <p>Debe tener al menos 3 caracteres</p>
+
+        }
+
+        @if ( taskForm.get('titulo')?.errors?.['maxlength'] ) {
+
+            <p>Máximo 50 caracteres</p>
+
+        }
+
+    }
+
+  <button
+    type="submit"
+    [disabled]="taskForm.invalid">
+
+    Guardar
+
+  </button>
+
+</form>

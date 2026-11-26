@@ -49,5 +49,13 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/auth/pages/login/login')
         .then(m => m.Login)
+    },
+    {
+      path: 'reactive-form-demo',
+      loadComponent: () =>
+        import(
+          './features/tasks/pages/reactive-form-demo/reactive-form-demo'
+        ).then(m => m.ReactiveFormDemo)
     }
+
 ];
