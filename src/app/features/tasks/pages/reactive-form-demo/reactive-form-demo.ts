@@ -12,9 +12,10 @@ import { debounceTime, distinctUntilChanged, map, switchMap, of } from 'rxjs';
   styleUrl: './reactive-form-demo.scss'
 })
 
+
 export class ReactiveFormDemo {
   private fb = inject(FormBuilder);
-
+  
   taskForm = this.fb.group({
 
     titulo: [
@@ -31,7 +32,14 @@ export class ReactiveFormDemo {
 
   });
   constructor() {
-
+    const tareas = [
+      'Angular',
+      'RxJS',
+      'NgRx',
+      'Signals',
+      'TypeScript',
+      'JavaScript'
+    ];
     this.taskForm.valueChanges.pipe(
 
       map(value => value.titulo ?? ''),
@@ -42,21 +50,30 @@ export class ReactiveFormDemo {
 
       switchMap(texto => {
 
-        console.log(
-          'Consultando:',
-          texto
-        );
+      console.log(
+        'Consultando:',
+        texto
+      );
 
-        return of({
-          texto,
-          longitud: texto.length
-        });
+      return of(
 
-      })
+        tareas.filter(t =>
+          t.toLowerCase()
+          .includes(
+              texto.toLowerCase()
+          )
+        )
+
+      );
+
+    })
 
     ).subscribe(resultado => {
 
-      console.log(resultado);
+      console.log(
+        'Resultados:',
+        resultado
+      );
 
     });
 
